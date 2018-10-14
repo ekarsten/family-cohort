@@ -34,3 +34,13 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+
+# Data management
+data.R
+family-cohort.Rproj
+
+# Tex Management
+*.pdf
+*.aux
+*.log
+*.synctex.gz
