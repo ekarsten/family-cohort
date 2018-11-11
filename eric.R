@@ -1,9 +1,5 @@
-# HI MY NAME IS ERIC
+# HI MY NAME IS ALEX
 
-# THIS IS MY FIRST R SCRIPT
+# THIS IS FAMILY-COHORT R SCRIPT
 
 3 + 4
-
-f <- function(x) {return (x + 5)}
-
-f(2)
