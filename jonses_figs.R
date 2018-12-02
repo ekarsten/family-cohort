@@ -26,12 +26,12 @@ library(haven) #for reading stata data
 # Loading In the Data
 #-----------------------------------
 
-#df <- read_dta(file.path(ddir, "Jonses", "ipums.dta.gz"))
+#df <- read_dta(file.path(ddir, "Joneses", "ipums.dta.gz"))
 
 #set.seed(2123)
 #small_df <- sample_n(df, 1000000)
 
-#save(small_df, file = file.path(ddir, "Jonses", "small_df.Rda"))
+#save(small_df, file = file.path(ddir, "Joneses", "small_df.Rda"))
 
 load(file.path(ddir, "Joneses", "small_df.Rda"))
 
