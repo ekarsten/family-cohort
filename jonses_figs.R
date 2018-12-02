@@ -1,5 +1,6 @@
 #====================================
-# Data Visualization with ggplot - Replicating Figures from Mariage Meets the Jonses
+# Data Visualization with ggplot - Replicating Figures from
+# Mariage Meets the Joneses
 #====================================
 
 #-----------------------------------
@@ -32,7 +33,7 @@ library(haven) #for reading stata data
 
 #save(small_df, file = file.path(ddir, "Jonses", "small_df.Rda"))
 
-load(file.path(ddir, "Jonses", "small_df.Rda"))
+load(file.path(ddir, "Joneses", "small_df.Rda"))
 
 #-----------------------------------
 # Cleaning Our Data
