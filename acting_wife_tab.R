@@ -27,7 +27,6 @@ library(haven) #for reading stata data
 
 survey <- read_dta(file.path(ddir, "Acting Wife", "2_survey.dta"))
 
-
 #-----------------------------------
 # Replicating Summary stats from Survey Data
 #-----------------------------------
@@ -65,7 +64,8 @@ survey %>%
   filter(!is.na(category)) %>%
   group_by(category) %>%
   summarise(Salary_Negotiation = mean(wage, na.rm = T),
-            Leadership_Role = mean(leadership, na.rm = T))
+            Leadership_Role = mean(leadership, na.rm = T),
+            Presentati)
 
 
 #-----------------------------------
