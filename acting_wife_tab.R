@@ -65,7 +65,11 @@ survey %>%
   filter(!is.na(category)) %>%
   group_by(category) %>%
   summarise(Salary_Negotiation = mean(wage, na.rm = T),
-            Leadership_Role = mean(leadership, na.rm = T))
+            Leadership_Role = mean(leadership, na.rm = T), 
+            Presentation_Initiative = mean(presentation, na.rm = T), 
+            Initiative_at_Meetings = mean(speaking, na.rm = T), 
+            Any_Behavior = mean(any, na.rm = T), 
+            observations = n())
 
 
 #-----------------------------------
