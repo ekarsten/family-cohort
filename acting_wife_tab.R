@@ -27,7 +27,6 @@ library(haven) #for reading stata data
 
 survey <- read_dta(file.path(ddir, "Acting Wife", "2_survey.dta"))
 
-
 #-----------------------------------
 # Replicating Summary stats from Survey Data
 #-----------------------------------
