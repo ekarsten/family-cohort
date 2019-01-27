@@ -221,7 +221,8 @@ fig_1a %>%
     ggplot(aes(x= binned_real_inc, y = prop_married)) + 
     geom_point() + 
     geom_smooth() +
-    facet_grid(pwmetro~year)
+    facet_grid(pwmetro~year) +
+    labs(title="Figure 2", x="Binned Real Income", y="Proportion Married")
 # This one will require some real work coding in the metro areas
     
     
