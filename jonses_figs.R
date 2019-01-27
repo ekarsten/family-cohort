@@ -76,6 +76,8 @@ INFL_codebook <-
   tibble(year = c(2000, 1990, 1980),
          infl_mult = c(1, 1.3175, 2.0898))
 
+
+
 # Now we join on all of these codebooks and create a new row for real_inc
 clean_df <-
   clean_df %>%
@@ -142,15 +144,86 @@ fig_1a %>%
 #-----------------------------------
 # Now you get to replicate Figure 1b
 #-----------------------------------
-
-
+  fig_1b <-
+    clean_df %>%
+    filter(race == "Black",
+           hispan == F,
+           age < 35,
+           age >= 25) %>%
+    mutate(binned_real_inc = round(real_inc/2500)*2500) %>%
+    group_by(binned_real_inc, year, sex) %>%
+    summarise(prop_married = mean(marst == "Married", na.rm = T)) %>%
+    filter(binned_real_inc < 75000)
+  
+  fig_1b %>%
+    filter(sex == "Male") %>%
+    ggplot(aes(x = binned_real_inc, y = prop_married, color = as.factor(year))) +
+    geom_point() +
+    geom_line() +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    labs(x = "Real Income in 2000's dollars",
+         y = "Proportion Married",
+         color = "Year",
+         title = "Marriage Rates by income for Nonhispanic Black Men")
 #-----------------------------------
 # Now you get to replicate Figure 1c
 #-----------------------------------
-
-
+  fig_1c <-
+    clean_df %>%
+    filter(hispan == T,
+           age < 35,
+           age >= 25) %>%
+    mutate(binned_real_inc = round(real_inc/2500)*2500) %>%
+    group_by(binned_real_inc, year, sex) %>%
+    summarise(prop_married = mean(marst == "Married", na.rm = T)) %>%
+    filter(binned_real_inc < 75000)
+  fig_1c %>%
+    filter(sex == "Male") %>%
+    ggplot(aes(x = binned_real_inc, y = prop_married, color = as.factor(year))) +
+    geom_point() +
+    geom_line() +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    labs(x = "Real Income in 2000's dollars",
+         y = "Proportion Married",
+         color = "Year",
+         title = "Marriage Rates by income for Hispanic Men")
 #-----------------------------------
 # Now you get to replicate Figure 2
 #-----------------------------------
-
+  PWMETRO_codebook <-
+    tibble(PWMETRO = c(5600, 4480, 1600, 1920, 6160),
+           pwmetro = c("New York", "Los Angeles", "Chicago", "Dallas", "Philadelphia"))
+  
+  clean_df2 <-
+    clean_df %>%
+    rename(PWMETRO = pwmetro) %>%
+    mutate(PWMETRO = as.integer(PWMETRO)) %>%
+    left_join(PWMETRO_codebook) %>%
+    select(-PWMETRO) 
+  
+  clean_df3 <- na.omit(clean_df2)
+  
+  
+  fig_2 <-
+    clean_df3 %>%
+    filter(race == "White",
+           hispan == F,
+           sex == "Male",
+           year != 1990) %>%
+    mutate(binned_real_inc = round(real_inc/2500)*2500) %>%
+    group_by(binned_real_inc, year, sex, pwmetro) %>%
+    summarise(prop_married = mean(marst == "Married", na.rm = T)) %>%
+    filter(binned_real_inc < 80000)
+  
+  fig_2 %>%
+    ggplot(aes(x= binned_real_inc, y = prop_married)) + 
+    geom_point() + 
+    geom_smooth() +
+    facet_grid(pwmetro~year)
 # This one will require some real work coding in the metro areas
+    
+    
+    
+    
