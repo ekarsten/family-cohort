@@ -65,9 +65,11 @@ survey %>%
   filter(!is.na(category)) %>%
   group_by(category) %>%
   summarise(Salary_Negotiation = mean(wage, na.rm = T),
-            Leadership_Role = mean(leadership, na.rm = T))
+            Leadership_Role = mean(leadership, na.rm = T),
+            Presentation_offer = mean(presentation, na.rm = T))
 
 
 #-----------------------------------
 # Your turn to replicate the other columns!
 #-----------------------------------
+
