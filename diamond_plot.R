@@ -34,3 +34,5 @@ df %>%
        y = "price in US dollars")
   # theme_bw() + 
   # theme(legend.position = "bottom")
+
+
