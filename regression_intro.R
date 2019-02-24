@@ -176,7 +176,8 @@ analysis_df <-
          year = as.factor(year),
          real_inc = real_inc/1000) %>%
   filter(age < 35, age > 24, marst != "Widowed",
-         marst != "Separated", sex == "Male")
+         marst != "Separated", marst != "Divorced",
+         sex == "Male")
 
 mar1 <- lm(married ~ real_inc, data = analysis_df)
 mar2 <- felm(married ~ real_inc | year + race + hispan, data = analysis_df)
