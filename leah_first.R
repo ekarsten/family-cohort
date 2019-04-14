@@ -1,0 +1,4 @@
+# MY NAME IS LEAH 
+# I AM MAKING MY FIRST FILE
+
+sum(3+4)
