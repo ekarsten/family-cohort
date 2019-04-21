@@ -1,3 +1,4 @@
+library(tidyverse)
 diamonds$color_num <-
   as.numeric(diamonds$color)
 
@@ -11,6 +12,22 @@ diamonds$clarity_num[diamonds$clarity %in% c("VS2", "VS1")] <- 2
 diamonds$clarity_num[diamonds$clarity %in% c("VVS2", "VVS1")] <- 3
 diamonds$clarity_num[diamonds$clarity %in% c("IF")] <- 4
 
+
+
+diamonds$cut_num <- rep(1, nrow(diamonds))
+diamonds$cut_num[diamonds$cut == "Fair"] <- 0
+
+
+mod1 <- lm(price ~ carat, data = diamonds)
+mod2 <- lm(price ~ carat + cut_num, data = diamonds)
+mod2 <- lm(price ~ carat * cut_num, data = diamonds)
+
+mod3 <- lm(price ~ carat + color, data = diamonds)
+
+
+summary(mod3)
+
+summary(mod2)
 
 
 

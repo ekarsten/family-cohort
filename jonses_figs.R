@@ -102,16 +102,9 @@ clean_df <-
 # for each bin, in each year, compute the fraction married
 # then plot the income vs prop maried where lines are colored in by year
 
-fig_1a <-
-  clean_df %>%
-  filter(race == "White",
-         hispan == F,
-         age < 35,
-         age >= 25) %>%
-  mutate(binned_real_inc = round(real_inc/2500)*2500) %>%
-  group_by(binned_real_inc, year, sex) %>%
-  summarise(prop_married = mean(marst == "Married", na.rm = T)) %>%
-  filter(binned_real_inc < 75000)
+
+
+
 
 fig_1a %>%
   filter(sex == "Male") %>%
@@ -143,14 +136,94 @@ fig_1a %>%
 # Now you get to replicate Figure 1b
 #-----------------------------------
 
+  
+  
+
+
+  
+fig_1a %>%
+  filter(sex == "Male") %>%
+  ggplot(aes(x = binned_real_inc, y = prop_married, color = as.factor(year))) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  labs(x = "Real Income in 2000's dollars",
+       y = "Proportion Married",
+       color = "Year",
+       title = "Marriage Rates by income for Nonhispanic White Men")
+
+fig_1b <-
+filter(race == "black",
+       hispan == F,
+       age < 35,
+       age > 24) %>% mutate(binned_real_inc = round(real_inc/2500)*2500)
+
+
+
+fig_1b %>%
+  filter(sex == "Male") %>%
+  filter(age < 35) %>%
+  filter(age > 24) %>%
+  filter(race == "Black") %>%
+  ggplot(aes(x = binned_real_inc, y = prop_married, color = as.factor(year))) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  labs(x = "Real Income in 2000's dollars",
+       y = "Proportion Married",
+       color = "Year",
+       title = "Marriage Rates by income for Nonhispanic Black Men")
+
+  
+  
 
 #-----------------------------------
 # Now you get to replicate Figure 1c
 #-----------------------------------
 
+fig_1c %>%
+  filter(sex == "Male") %>%
+  ggplot(aes(x = binned_real_inc, y = prop_married, color = as.factor(year))) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  labs(x = "Real Income in 2000's dollars",
+       y = "Proportion Married",
+       color = "Year",
+       title = "Marriage Rates by income for Hispanic Men")
 
 #-----------------------------------
 # Now you get to replicate Figure 2
 #-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # This one will require some real work coding in the metro areas
