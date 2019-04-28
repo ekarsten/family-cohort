@@ -33,7 +33,13 @@ library(stargazer) # for pretty regression tables
 
 load(file.path(ddir, "df.Rda"))
 
-head(df)
+#Use this to observe changes in your data 
+small_section <- df[1:10,]
+View(small_section)
+
+set.seed(100)
+sample_df = sample_n(df, 100000)
+
 #-----------------------------------
 # Cleaning Our Data
 #-----------------------------------
