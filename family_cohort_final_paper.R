@@ -39,6 +39,8 @@ head(df)
 #-----------------------------------
 
 #Here is where we will clean our data
+
+# Sunday, April 28th
 NYmetro_df <- df %>%
   filter(PWMETRO == 5600) %>%
   filter(MARST == 1) %>%
