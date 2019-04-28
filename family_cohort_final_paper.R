@@ -39,17 +39,27 @@ head(df)
 #-----------------------------------
 
 #Here is where we will clean our data
+NYmetro_df <- df %>%
+  filter(PWMETRO == 5600) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9)
+
+NYinter_df <- NYmetro_df %>%
+  filter(RACE != RACE_SP)
+
+summary(NYmetro_df)
+  
+LAmetro_df <- df %>%
+  filter(PWMETRO == 4480) 
 
 #-----------------------------------
 # Figures
 #-----------------------------------
 
 #Here is where we will make our figures 
-
-
-
-
-
-
-
 
