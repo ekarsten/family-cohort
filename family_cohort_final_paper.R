@@ -48,7 +48,7 @@ head(df)
 
 #"Proof of Concept" - Cedric
 
-tiny_df <- df[1:10000, 1:105]
+tiny_df <- df[1:1000000, 1:105]
 
 #the following show distribution of Speaks English of Spouse for each English proficiency level of the person who filled out the survey 
 
@@ -150,3 +150,31 @@ sample_df <-
   sample_df %>%
   left_join(SPEAKENG_codebook) %>%
   left_join(SPEAKENGSP_codebook)
+
+#racial composition within New York metro area
+
+tinyNY_df <- tiny_df %>%
+  filter(PWMETRO == 5600)
+
+NY_df <- df %>%
+  filter(PWMETRO == 5600)
+
+NY_df12 <- df %>%
+  filter(PWMETRO == 5600, MARST == 1 | MARST == 2)
+
+NY_df2 <- NY_df %>%
+  filter(MARST == 2)
+
+#MARST == 1: spouse present
+
+NY_df1 <- NY_df %>%
+  filter(MARST == 1)
+
+NY_dfint <- NY_df1 %>%
+  filter(RACE != RACE_SP) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9) 
