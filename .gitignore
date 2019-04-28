@@ -44,3 +44,4 @@ family-cohort.Rproj
 *.aux
 *.log
 *.synctex.gz
+.Rproj.user
