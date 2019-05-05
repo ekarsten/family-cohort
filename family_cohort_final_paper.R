@@ -46,11 +46,17 @@ sample_df = sample_n(df, 100000)
 
 #Here is where we will clean our data
 
+
 #-----------------------------------
 # Figures
 #-----------------------------------
 
 #Here is where we will make our figures 
+
+metro <- sample_df$PWMETRO
+
+##
+
 
 
 
