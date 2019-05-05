@@ -368,6 +368,7 @@ fig_1a %>%
 # Now you get to replicate Figure 1b
 #-----------------------------------
 
+<<<<<<< HEAD
   
   
 
@@ -398,31 +399,72 @@ fig_1b %>%
   filter(age < 35) %>%
   filter(age > 24) %>%
   filter(race == "Black") %>%
+=======
+fig_1b <-
+  clean_df %>%
+  filter(race == "Black",
+          hispan == F,
+          age < 35,
+          age >= 25) %>%
+  mutate(binned_real_inc = round(real_inc/2500)*2500) %>%
+  group_by(binned_real_inc, year, sex) %>%
+  summarise(prop_married = mean(marst == "Married", na.rm = T)) %>%
+  filter(binned_real_inc < 75000)
+  
+fig_1b %>%
+  filter(sex == "Male") %>%
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
   ggplot(aes(x = binned_real_inc, y = prop_married, color = as.factor(year))) +
   geom_point() +
   geom_line() +
   theme_bw() +
   theme(legend.position = "bottom") +
   labs(x = "Real Income in 2000's dollars",
+<<<<<<< HEAD
        y = "Proportion Married",
        color = "Year",
        title = "Marriage Rates by income for Nonhispanic Black Men")
 
   
   
+=======
+        y = "Proportion Married",
+        color = "Year",
+        title = "Marriage Rates by income for Nonhispanic Black Men")
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
 
 #-----------------------------------
 # Now you get to replicate Figure 1c
 #-----------------------------------
 
+<<<<<<< HEAD
 fig_1c %>%
+=======
+fig_lc <-
+  clean_df %>%
+  filter(hispan == T,
+         age < 35,
+         age >= 25) %>%
+  mutate(binned_real_inc = round(real_inc/2500)*2500) %>%
+  group_by(binned_real_inc, year, sex) %>%
+  summarise(prop_married = mean(marst == "Married", na.rm = T)) %>%
+  filter(binned_real_inc < 75000)
+
+fig_lc %>%
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
   filter(sex == "Male") %>%
   ggplot(aes(x = binned_real_inc, y = prop_married, color = as.factor(year))) +
   geom_point() +
   geom_line() +
+<<<<<<< HEAD
   theme_bw() +
   theme(legend.position = "bottom") +
   labs(x = "Real Income in 2000's dollars",
+=======
+  theme_bw() + 
+  theme(legend.position = "bottom") +
+  labs(x = "Real income in 2000's dollars",
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
        y = "Proportion Married",
        color = "Year",
        title = "Marriage Rates by income for Hispanic Men")
@@ -433,6 +475,7 @@ fig_1c %>%
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -460,3 +503,6 @@ fig_1c %>%
 
 # This one will require some real work coding in the metro areas
 >>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
+=======
+# This one will require some real work coding in the metro areas
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
