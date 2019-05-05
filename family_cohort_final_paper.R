@@ -74,7 +74,22 @@ filtereddfclean <- filtereddf %>% left_join(sex_codebook) %>%
   left_join(race_codebook) %>%
   left_join(racesp_codebook)
 
-# for creating a table with the race percentages once the cityname-year dfs exist
+
+#duplicating the creation of the cityname_year dfs in order to test the rest of the code
+#cityname_1980 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 1980)
+#cityname_1990 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 1990)
+#cityname_2000 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 2000)
+
+
+
+#-----------------------------------
+# Figures
+#-----------------------------------
+
+#Here is where we will make our figures 
+
+
+# for creating a line graph with the race percentages once the cityname-year dfs exist
 #For 1980
 cityname_1980 <- cityname_1980 %>% left_join(race_codebook)
 observationscityname_1980 <- nrow(cityname_1980)
@@ -109,36 +124,6 @@ racecityname_2000$Year <- 2000
 racecitynameall <- rbind(racecityname_2000, racecityname_1990, racecityname_1980)
 #plotting this city's racial composition over the years in a line graph
 ggplot(data = racecitynameall, aes(x=Year, y=Percent)) + geom_line(aes(colour=Race))
-
-
-
-#-----------------------------------
-# Figures
-#-----------------------------------
-
-#Here is where we will make our figures 
-
-
-
-
-
-
-
-pwmetro <- tibble(PWMETRO = c(4480), pwmetro = "Los Angeles-Long Beach")
-
-
-
-
-
-
-
-
-f1 <-
-ggplot(data=, aes(x=race, y=percent)) +
-    geom_bar(stat="identity", color="blue", fill="white")
-
-
-
 
 
 
