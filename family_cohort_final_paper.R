@@ -108,4 +108,45 @@ LA2000_inter_df <- LA2000_df %>%
 958/14440
 #The result is 0.06634349
 
+
 #Here is where we will make our figures 
+
+LAgroup <- LAmetro_df %>%
+  group_by(YEAR) %>%
+  mutate(interracial = as.numeric(RACE != RACE_SP)) %>%
+  summarise(inter_prop = mean(interracial))
+
+ggplot(data = LAgroup, aes(x = YEAR, y = inter_prop)) +
+  geom_point() +
+  geom_line()
+
+
+NYgroup <- NYmetro_df %>%
+  group_by(YEAR) %>%
+  mutate(interracial2 = as.numeric(RACE != RACE_SP)) %>%
+  summarise(inter_prop2 = mean(interracial2))
+
+ggplot(data = NYgroup, aes(x = YEAR, y = inter_prop2)) +
+  geom_point() +
+  geom_line()
+
+LA_NYmetro_df <- df %>%
+  filter(PWMETRO == 4480 | PWMETRO == 5600) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9)
+
+NY_LAgroup <- LA_NYmetro_df %>%
+  group_by(YEAR, PWMETRO) %>%
+  mutate(interracial3 = as.numeric(RACE != RACE_SP)) %>%
+  summarise(inter_prop3 = mean(interracial3))
+
+NY_LAgroup$PWMETRO = as.factor(NY_LAgroup$PWMETRO)
+
+ggplot(data = NY_LAgroup, aes(x = YEAR, y = inter_prop3, color = PWMETRO)) +
+  geom_point() +
+  geom_line()
