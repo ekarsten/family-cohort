@@ -72,6 +72,16 @@ LAmetro_df <- df %>%
 
 # part 1: data cleaning
 
+LAmetro_df <- df %>%
+  filter(PWMETRO == 4480) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9)
+
 # clean the dataset for interracial marriages in LA in the 1980s
 
 LAmetro_1980_df <- df %>%
@@ -122,6 +132,36 @@ LAinter_2000_df <- LAmetro_2000_df %>%
 
 # part 2: creating a new dataset for the figure
 
-  
+LAtable <- LAmetro_df %>%
+  group_by(YEAR) %>%
+  mutate(interracial = as.numeric(RACE != RACE_SP)) %>%
+  summarise(prop_interracial = mean(interracial))
+
+# part 3: creating a figure
+
+ggplot(data = LAtable, aes(x = YEAR, y = prop_interracial)) +
+  geom_point() +
+  geom_line()
+
+# part 4: incorporate new cities and create a similar figure
+
+Citiesmetro_df <- df %>%
+  filter(PWMETRO == 4480 | PWMETRO == 5600) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9) 
+
+Citiestable <- Citiesmetro_df %>%
+  group_by(YEAR, PWMETRO) %>%
+  mutate(interracial = as.numeric(RACE != RACE_SP)) %>%
+  summarise(prop_interracial = mean(interracial))
+
+
+
+
 
 
