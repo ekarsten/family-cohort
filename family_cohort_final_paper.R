@@ -63,11 +63,14 @@ print(xtable(cities271to300, type = "latex"), file = "C:/Users/ahkan/Desktop/Fam
 print(xtable(cities301to332, type = "latex"), file = "C:/Users/ahkan/Desktop/Family-Cohort/family-cohort/PWMetrotables/pwmetrowhole301-332.tex")
 
 
+#organized by city-year (we need to replace cityname w/ the desired name, & replace 4480 with desired city code)
+cityname_1980 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 1980)
+cityname_1990 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 1990)
+cityname_2000 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 2000)
 
-#organized by year (this should work to create subsets by year, but the df is still too big) 
-df1980 <- subset(df, YEAR == 1980)
-df1990 <- subset(df, YEAR == 1990)
-df2000 <- subset(df, YEAR == 2000)
+
+
+
 
 #-----------------------------------
 # Figures
