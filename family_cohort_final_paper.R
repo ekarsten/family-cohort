@@ -74,6 +74,14 @@ filtereddfclean <- filtereddf %>% left_join(sex_codebook) %>%
   left_join(race_codebook) %>%
   left_join(racesp_codebook)
 
+# for creating a table with the race percentages once the cityname-year dfs exist
+cityname_1980 <- cityname_1980 %>% left_join(race_codebook)
+racecityname_1980 <- as.data.frame(table(cityname_1980$race))
+names(racecityname_1980) <- c("Race", "Population")
+observationscityname_1980 <- nrow(cityname_1980)
+racecityname_1980$Percent <- 0
+racecityname_1980$Percent <- (racecityname_1980$Population / observationscityname_1980)
+
 #-----------------------------------
 # Figures
 #-----------------------------------
@@ -81,6 +89,23 @@ filtereddfclean <- filtereddf %>% left_join(sex_codebook) %>%
 #Here is where we will make our figures 
 
 
+
+
+
+
+
+pwmetro <- tibble(PWMETRO = c(4480), pwmetro = "Los Angeles-Long Beach")
+
+
+
+
+
+
+
+
+f1 <-
+ggplot(data=, aes(x=race, y=percent)) +
+    geom_bar(stat="identity", color="blue", fill="white")
 
 
 
