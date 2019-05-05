@@ -22,7 +22,11 @@ library(tidyverse)
 library(haven) # for reading stata data
 library(lfe) # for fixed effect regression
 library(stargazer) # for pretty regression tables
+<<<<<<< HEAD
 library(xtable)
+=======
+library(Hmisc)
+>>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
 #-----------------------------------
 # Loading In the Data
 #-----------------------------------
@@ -46,6 +50,7 @@ sample_df = sample_n(df, 100000)
 
 #Here is where we will clean our data
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 #Trying to figure out #s of people in a given city
@@ -80,6 +85,59 @@ cityname_2000 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 2000)
 
 
 >>>>>>> 55c6480584623b46164e3ef6b4a9ad988a7497cf
+=======
+#sex codebooks
+sex_codebook <- tibble(SEX = c(1, 2),
+                       sex = c("Male", "Female"))
+sexsp_codebook <- tibble(SEX_SP = c(1,2),
+                         sexsp = c("Male", "Female"))
+#limited df to test stuff on
+dflimited <- head(df, 15)
+
+#race codebooks
+race_codebook <- tibble(RACE = c(1, 2, 3, 4, 5, 6, 7, 8, 9),
+                        race = c("White", "Black", "Native",
+                                 "Chinese", " Japanese", "OtherAsian",
+                                 "Other", "Multi", "Multi"))
+racesp_codebook <- tibble(RACE_SP = c(1, 2, 3, 4, 5, 6, 7, 8, 9),
+                          racesp = c("White", "Black", "Native",
+                                 "Chinese", " Japanese", "OtherAsian",
+                                 "Other", "Multi", "Multi"))
+
+#demonstration codebooks work on limited version
+dflimitedclean <- dflimited %>% left_join(sex_codebook) %>% 
+                                left_join(sexsp_codebook) %>%
+                                left_join(race_codebook) %>%
+                                left_join(racesp_codebook)
+#Beginning to get rid of some of the columns for the df
+filtereddf <- df %>% select(-GQ, -NFAMS, -NSUBFAM, -NCOUPLES,
+                            -MULTGEN, -MULTGEND, -FAMUNIT, -SUBFAM, 
+                            -SFTYPE, -SFRELATE, -CBSUBFAM, -CBSFTYPE, 
+                            -CBSFRELATE, -NCHILD, -ELDCH, -YNGCH, -RELATE, -RELATED)
+#Attempt to clean the larger df; fails b/c of size
+filtereddfclean <- filtereddf %>% left_join(sex_codebook) %>% 
+  left_join(sexsp_codebook) %>%
+  left_join(race_codebook) %>%
+  left_join(racesp_codebook)
+
+<<<<<<< HEAD
+# for creating a table with the race percentages once the cityname-year dfs exist
+cityname_1980 <- cityname_1980 %>% left_join(race_codebook)
+racecityname_1980 <- as.data.frame(table(cityname_1980$race))
+names(racecityname_1980) <- c("Race", "Population")
+observationscityname_1980 <- nrow(cityname_1980)
+racecityname_1980$Percent <- 0
+racecityname_1980$Percent <- (racecityname_1980$Population / observationscityname_1980)
+>>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
+=======
+
+#duplicating the creation of the cityname_year dfs in order to test the rest of the code
+#cityname_1980 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 1980)
+#cityname_1990 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 1990)
+#cityname_2000 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 2000)
+
+
+>>>>>>> 6a5782310fdaa25e8e4956faea4a1a4a3f89d62b
 
 #-----------------------------------
 # Figures
@@ -202,6 +260,7 @@ sample_df <-
 #racial composition within New York metro area
 >>>>>>> 55c6480584623b46164e3ef6b4a9ad988a7497cf
 
+<<<<<<< HEAD
 tinyNY_df <- tiny_df %>%
   filter(PWMETRO == 5600)
 
@@ -216,8 +275,65 @@ NY_df2 <- NY_df %>%
 
 #MARST == 1: spouse present
 
+<<<<<<< HEAD
 NY_df1 <- NY_df %>%
   filter(MARST == 1)
+=======
+pwmetro <- tibble(PWMETRO = c(4480), pwmetro = "Los Angeles-Long Beach")
+
+
+
+
+
+
+
+
+f1 <-
+ggplot(data=, aes(x=race, y=percent)) +
+    geom_bar(stat="identity", color="blue", fill="white")
+
+
+
+=======
+# for creating a line graph with the race percentages once the cityname-year dfs exist
+#For 1980
+cityname_1980 <- cityname_1980 %>% left_join(race_codebook)
+observationscityname_1980 <- nrow(cityname_1980)
+racecityname_1980 <- as.data.frame(table(cityname_1980$race))
+names(racecityname_1980) <- c("Race", "Population")
+racecityname_1980$Percent <- 0
+racecityname_1980$Percent <- (racecityname_1980$Population / observationscityname_1980)
+#For if we want to print this to a table as well
+#print(xtable(racecityname_1980, type "latex"), file = "insert file path")
+#For 1990
+cityname_1990 <- cityname_1990 %>% left_join(race_codebook)
+observationscityname_1990 <- nrow(cityname_1990)
+racecityname_1990 <- as.data.frame(table(cityname_1990$race))
+names(racecityname_1990) <- c("Race", "Population")
+racecityname_1990$Percent <- 0
+racecityname_1990$Percent <- (racecityname_1990$Population / observationscityname_1990)
+#For if we want to print this to a table as well
+#print(xtable(racecityname_1990, type "latex"), file = "insert file path")
+#For 2000
+cityname_2000 <- cityname_2000 %>% left_join(race_codebook)
+observationscityname_2000 <- nrow(cityname_2000)
+racecityname_2000 <- as.data.frame(table(cityname_2000$race))
+names(racecityname_2000) <- c("Race", "Population")
+racecityname_2000$Percent <- 0
+racecityname_2000$Percent <- (racecityname_2000$Population / observationscityname_2000)
+#For if we want to print this to a table as well
+#print(xtable(racecityname_2000, type "latex"), file = "insert file path")
+#turning them into one table
+racecityname_1980$Year <- 1980
+racecityname_1990$Year <- 1990
+racecityname_2000$Year <- 2000
+racecitynameall <- rbind(racecityname_2000, racecityname_1990, racecityname_1980)
+#plotting this city's racial composition over the years in a line graph
+ggplot(data = racecitynameall, aes(x=Year, y=Percent)) + geom_line(aes(colour=Race))
+>>>>>>> 6a5782310fdaa25e8e4956faea4a1a4a3f89d62b
+
+
+>>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
 
 NY_dfint <- NY_df1 %>%
   filter(RACE != RACE_SP) %>%
