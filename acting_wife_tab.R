@@ -62,7 +62,7 @@ category_codebook <-
 survey %>%
   left_join(category_codebook) %>%
   filter(!is.na(category)) %>%
-  group_by(category) %>%
+  group_by(category) %>% 
   summarise(Salary_Negotiation = mean(wage, na.rm = T),
             Leadership_Role = mean(leadership, na.rm = T), 
             Presentation_Initiative = mean(presentation, na.rm = T), 
@@ -74,3 +74,4 @@ survey %>%
 #-----------------------------------
 # Your turn to replicate the other columns!
 #-----------------------------------
+

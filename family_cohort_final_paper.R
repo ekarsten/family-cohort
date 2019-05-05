@@ -23,10 +23,15 @@ library(haven) # for reading stata data
 library(lfe) # for fixed effect regression
 library(stargazer) # for pretty regression tables
 <<<<<<< HEAD
+<<<<<<< HEAD
 library(xtable)
 =======
 library(Hmisc)
 >>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
+=======
+library(ggplot2)
+
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
 #-----------------------------------
 # Loading In the Data
 #-----------------------------------
@@ -50,6 +55,7 @@ sample_df = sample_n(df, 100000)
 
 #Here is where we will clean our data
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -138,6 +144,26 @@ racecityname_1980$Percent <- (racecityname_1980$Population / observationscitynam
 
 
 >>>>>>> 6a5782310fdaa25e8e4956faea4a1a4a3f89d62b
+=======
+# Sunday, April 28th
+NYmetro_df <- df %>%
+  filter(PWMETRO == 5600) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9)
+
+NYinter_df <- NYmetro_df %>%
+  filter(RACE != RACE_SP)
+
+summary(NYmetro_df)
+  
+LAmetro_df <- df %>%
+  filter(PWMETRO == 4480) 
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
 
 #-----------------------------------
 # Figures
@@ -145,6 +171,7 @@ racecityname_1980$Percent <- (racecityname_1980$Population / observationscitynam
 
 #Here is where we will make our figures 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 metro <- sample_df$PWMETRO
 
@@ -291,6 +318,101 @@ pwmetro <- tibble(PWMETRO = c(4480), pwmetro = "Los Angeles-Long Beach")
 f1 <-
 ggplot(data=, aes(x=race, y=percent)) +
     geom_bar(stat="identity", color="blue", fill="white")
+=======
+# Sunday, May 5th
+
+# We decide to work on interracial marriages in Los Angeles-Long Beach this time
+
+# part 1: data cleaning
+
+LAmetro_df <- df %>%
+  filter(PWMETRO == 4480) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9)
+
+# clean the dataset for interracial marriages in LA in the 1980s
+
+LAmetro_1980_df <- df %>%
+  filter(PWMETRO == 4480) %>%
+  filter(YEAR == 1980) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9) 
+
+LAinter_1980_df <- LAmetro_1980_df %>%
+  filter(RACE != RACE_SP)
+
+# clean the dataset for interracial marriages in LA in the 1990s
+
+LAmetro_1990_df <- df %>%
+  filter(PWMETRO == 4480) %>%
+  filter(YEAR == 1990) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9) 
+
+LAinter_1990_df <- LAmetro_1990_df %>%
+  filter(RACE != RACE_SP)
+
+# clean the dataset for interracial marriages in LA in the 2000s
+
+LAmetro_2000_df <- df %>%
+  filter(PWMETRO == 4480) %>%
+  filter(YEAR == 2000) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9) 
+
+LAinter_2000_df <- LAmetro_2000_df %>%
+  filter(RACE != RACE_SP)
+
+# part 2: creating a new dataset for the figure
+
+LAtable <- LAmetro_df %>%
+  group_by(YEAR) %>%
+  mutate(interracial = as.numeric(RACE != RACE_SP)) %>%
+  summarise(prop_interracial = mean(interracial))
+
+# part 3: creating a figure
+
+ggplot(data = LAtable, aes(x = YEAR, y = prop_interracial)) +
+  geom_point() +
+  geom_line()
+
+# part 4: incorporate new cities and create a similar figure
+
+Citiesmetro_df <- df %>%
+  filter(PWMETRO == 4480 | PWMETRO == 5600) %>%
+  filter(MARST == 1) %>%
+  filter(RACE != 7) %>%
+  filter(RACE != 8) %>%
+  filter(RACE != 9) %>%
+  filter(RACE_SP != 7) %>%
+  filter(RACE_SP != 8) %>%
+  filter(RACE_SP != 9) 
+
+Citiestable <- Citiesmetro_df %>%
+  group_by(YEAR, PWMETRO) %>%
+  mutate(interracial = as.numeric(RACE != RACE_SP)) %>%
+  summarise(prop_interracial = mean(interracial))
+>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
 
 
 
