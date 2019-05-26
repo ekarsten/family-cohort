@@ -22,16 +22,11 @@ library(tidyverse)
 library(haven) # for reading stata data
 library(lfe) # for fixed effect regression
 library(stargazer) # for pretty regression tables
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 library(xtable)
-=======
 library(Hmisc)
->>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
-=======
 library(ggplot2)
 
->>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
 #-----------------------------------
 # Loading In the Data
 #-----------------------------------
@@ -55,10 +50,6 @@ sample_df = sample_n(df, 100000)
 
 #Here is where we will clean our data
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 #Trying to figure out #s of people in a given city
 cities <- as.data.frame(table(df$PWMETRO))
 names(cities) <- c("PWMETRO", "number")
@@ -90,8 +81,8 @@ cityname_2000 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 2000)
 
 
 
->>>>>>> 55c6480584623b46164e3ef6b4a9ad988a7497cf
-=======
+#>>>>>>> 55c6480584623b46164e3ef6b4a9ad988a7497cf
+#=======
 #sex codebooks
 sex_codebook <- tibble(SEX = c(1, 2),
                        sex = c("Male", "Female"))
@@ -126,7 +117,7 @@ filtereddfclean <- filtereddf %>% left_join(sex_codebook) %>%
   left_join(race_codebook) %>%
   left_join(racesp_codebook)
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 # for creating a table with the race percentages once the cityname-year dfs exist
 cityname_1980 <- cityname_1980 %>% left_join(race_codebook)
 racecityname_1980 <- as.data.frame(table(cityname_1980$race))
@@ -134,8 +125,8 @@ names(racecityname_1980) <- c("Race", "Population")
 observationscityname_1980 <- nrow(cityname_1980)
 racecityname_1980$Percent <- 0
 racecityname_1980$Percent <- (racecityname_1980$Population / observationscityname_1980)
->>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
-=======
+#>>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
+#=======
 
 #duplicating the creation of the cityname_year dfs in order to test the rest of the code
 #cityname_1980 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 1980)
@@ -143,8 +134,8 @@ racecityname_1980$Percent <- (racecityname_1980$Population / observationscitynam
 #cityname_2000 <- subset(df, PWMETRO == 4480) %>% subset(YEAR == 2000)
 
 
->>>>>>> 6a5782310fdaa25e8e4956faea4a1a4a3f89d62b
-=======
+#>>>>>>> 6a5782310fdaa25e8e4956faea4a1a4a3f89d62b
+#=======
 # Sunday, April 28th
 NYmetro_df <- df %>%
   filter(PWMETRO == 5600) %>%
@@ -163,7 +154,7 @@ summary(NYmetro_df)
   
 LAmetro_df <- df %>%
   filter(PWMETRO == 4480) 
->>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
+#>>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
 
 #-----------------------------------
 # Figures
@@ -171,14 +162,12 @@ LAmetro_df <- df %>%
 
 #Here is where we will make our figures 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 metro <- sample_df$PWMETRO
 
 ##
 
 
-=======
+
 #"Proof of Concept" - Cedric
 
 tiny_df <- df[1:1000000, 1:105]
@@ -285,9 +274,7 @@ sample_df <-
   left_join(SPEAKENGSP_codebook)
 
 #racial composition within New York metro area
->>>>>>> 55c6480584623b46164e3ef6b4a9ad988a7497cf
 
-<<<<<<< HEAD
 tinyNY_df <- tiny_df %>%
   filter(PWMETRO == 5600)
 
@@ -302,10 +289,9 @@ NY_df2 <- NY_df %>%
 
 #MARST == 1: spouse present
 
-<<<<<<< HEAD
 NY_df1 <- NY_df %>%
   filter(MARST == 1)
-=======
+
 pwmetro <- tibble(PWMETRO = c(4480), pwmetro = "Los Angeles-Long Beach")
 
 
@@ -318,7 +304,7 @@ pwmetro <- tibble(PWMETRO = c(4480), pwmetro = "Los Angeles-Long Beach")
 f1 <-
 ggplot(data=, aes(x=race, y=percent)) +
     geom_bar(stat="identity", color="blue", fill="white")
-=======
+
 # Sunday, May 5th
 
 # We decide to work on interracial marriages in Los Angeles-Long Beach this time
@@ -412,11 +398,9 @@ Citiestable <- Citiesmetro_df %>%
   group_by(YEAR, PWMETRO) %>%
   mutate(interracial = as.numeric(RACE != RACE_SP)) %>%
   summarise(prop_interracial = mean(interracial))
->>>>>>> f18bc90efd905c9df7150b4370461806b0ea40c2
 
 
 
-=======
 # for creating a line graph with the race percentages once the cityname-year dfs exist
 #For 1980
 cityname_1980 <- cityname_1980 %>% left_join(race_codebook)
@@ -452,10 +436,7 @@ racecityname_2000$Year <- 2000
 racecitynameall <- rbind(racecityname_2000, racecityname_1990, racecityname_1980)
 #plotting this city's racial composition over the years in a line graph
 ggplot(data = racecitynameall, aes(x=Year, y=Percent)) + geom_line(aes(colour=Race))
->>>>>>> 6a5782310fdaa25e8e4956faea4a1a4a3f89d62b
 
-
->>>>>>> 9010229b46d70ceae3e2d6458d8c2fd0f7413ef2
 
 NY_dfint <- NY_df1 %>%
   filter(RACE != RACE_SP) %>%
@@ -465,3 +446,31 @@ NY_dfint <- NY_df1 %>%
   filter(RACE_SP != 7) %>%
   filter(RACE_SP != 8) %>%
   filter(RACE_SP != 9) 
+
+#Regression
+
+#preparing variables for regression 
+
+#calculating prop of non white people in population
+df_regression <- df %>% 
+  filter(PWMETRO == 1520 | PWMETRO == 7240 | PWMETRO == 5080 | PWMETRO == 4480 | PWMETRO == 5600 | PWMETRO == 1600) %>%
+  mutate(race_non_white = if_else(RACE != 1, 1, 0, missing = NULL)) 
+
+prop_non_white = df_regression %>% 
+  group_by(PWMETRO, YEAR) %>%
+  summarise(diversity_prop = mean(race_non_white))
+
+df_regression <- left_join(df_regression, prop_non_white, by = c("PWMETRO", "YEAR"))
+
+#adding dummy variable for married or not 
+df_regression <- df_regression %>%
+  filter(MARST == 1) %>%
+  mutate(interracial_marriage = if_else(RACE != RACE_SP, 1, 0, missing = NULL))
+
+
+#running the regression
+
+felm(interracial_marriage ~ diversity_prop, data = df_regression)
+
+  
+
