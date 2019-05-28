@@ -25,6 +25,7 @@ library(stargazer) # for pretty regression tables
 
 library(xtable)
 library(Hmisc)
+
 library(ggplot2)
 
 #-----------------------------------
@@ -88,6 +89,7 @@ sex_codebook <- tibble(SEX = c(1, 2),
                        sex = c("Male", "Female"))
 sexsp_codebook <- tibble(SEX_SP = c(1,2),
                          sexsp = c("Male", "Female"))
+
 #limited df to test stuff on
 dflimited <- head(df, 15)
 
@@ -467,10 +469,23 @@ df_regression <- df_regression %>%
   filter(MARST == 1) %>%
   mutate(interracial_marriage = if_else(RACE != RACE_SP, 1, 0, missing = NULL))
 
+#making age groupings
+
+df_regression$AgeGroup <- cut(df_regression$AGE, breaks = c(seq(0, 100, by = 10), Inf), right = FALSE)
+
+#education codebook
 
 #running the regression
 
-felm(interracial_marriage ~ diversity_prop, data = df_regression)
+test_reg <- lm(interracial_marriage ~ diversity_prop, data = df_regression)
+stargazer(test_reg)
 
-  
+educ_codebook <- tibble(EDUC = c(0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
+                        educ = c("NA", "Grade School", "Grade School",
+                                 "High School", "High School", "High School",
+                                 "High School", "College", "College", "College", "College", "College"))
 
+df_regression <- df_regression %>% left_join(educ_codebook)
+
+
+View(df_regression)
