@@ -40,7 +40,7 @@ library(ggplot2)
 load(file.path(ddir, "df.Rda"))
 
 df_regression <- df %>% 
-  filter(PWMETRO == 1520 | PWMETRO == 7240 | PWMETRO == 5080 | PWMETRO == 4480 | PWMETRO == 5600 | PWMETRO == 1600) %>%
+  filter(PWMETRO == 5080 | PWMETRO == 7240 | PWMETRO == 1520 | PWMETRO == 520 | PWMETRO == 3360 | PWMETRO == 1600) %>%
   mutate(race_non_white = if_else(RACE != 1, 1, 0, missing = NULL)) 
 
 prop_non_white = df_regression %>% 
@@ -68,32 +68,45 @@ educ_codebook <- tibble(EDUC = c(0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
                                  "High School", "College", "College", "College", "College", "College"))
 df_regression <- df_regression %>% left_join(educ_codebook)
 
+#filter based on city size 
+df_small_city <- df_regression %>%
+  filter(PWMETRO == 5080 | PWMETRO == 7240 | PWMETRO == 1520)
+
+df_big_city <- df_regression %>%
+  filter(PWMETRO == 520 | PWMETRO == 3360 | PWMETRO == 1600)
+
 
 #running the regressions
-fe1 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + AgeGroup, data = df_regression)
-fe2 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + AgeGroup + educ, data = df_regression)
-fe3 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + AgeGroup + inc, data = df_regression)
-fe4 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + AgeGroup + educ + inc, data = df_regression)
+fe1 <- felm(interracial_marriage ~ diversity_prop | PWMETRO, data = df_small_city)
+fe2 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ, data = df_small_city)
+fe3 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + inc, data = df_small_city)
+fe4 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ + inc, data = df_small_city)
 
-fe5 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup, data = df_regression)
-fe6 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup + educ, data = df_regression)
-fe7 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup + inc, data = df_regression)
-fe8 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup + educ + inc, data = df_regression)
-
-fe9 <- felm(interracial_marriage ~ diversity_prop | YEAR, data = df_regression)
-fe10 <- felm(interracial_marriage ~ diversity_prop | YEAR + educ, data = df_regression)
-fe11 <- felm(interracial_marriage ~ diversity_prop | YEAR + inc, data = df_regression)
-fe12 <- felm(interracial_marriage ~ diversity_prop | YEAR + educ + inc, data = df_regression)
-
-fe13 <- felm(interracial_marriage ~ diversity_prop | PWMETRO, data = df_regression)
-fe14 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ, data = df_regression)
-fe15 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + inc, data = df_regression)
-fe16 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ + inc, data = df_regression)
+fe01 <- felm(interracial_marriage ~ diversity_prop | PWMETRO, data = df_big_city)
+fe02 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ, data = df_big_city)
+fe03 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + inc, data = df_big_city)
+fe04 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ + inc, data = df_big_city)
 
 
 stargazer(fe1, fe2, fe3, fe4)
-stargazer(fe5, fe6, fe7, fe8)
-stargazer(fe9, fe10, fe11, fe12)
-stargazer(fe13, fe14, fe15, fe16)
+stargazer(fe01, fe02, fe03, fe04)
+
+#fe5 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup, data = df_regression)
+#fe6 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup + educ, data = df_regression)
+#fe7 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup + inc, data = df_regression)
+#fe8 <- felm(interracial_marriage ~ diversity_prop | YEAR + AgeGroup + educ + inc, data = df_regression)
+
+#fe9 <- felm(interracial_marriage ~ diversity_prop | YEAR, data = df_regression)
+#fe10 <- felm(interracial_marriage ~ diversity_prop | YEAR + educ, data = df_regression)
+#fe11 <- felm(interracial_marriage ~ diversity_prop | YEAR + inc, data = df_regression)
+#fe12 <- felm(interracial_marriage ~ diversity_prop | YEAR + educ + inc, data = df_regression)
+
+#fe13 <- felm(interracial_marriage ~ diversity_prop | PWMETRO, data = df_regression)
+#fe14 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ, data = df_regression)
+#fe15 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + inc, data = df_regression)
+#fe16 <- felm(interracial_marriage ~ diversity_prop | PWMETRO + educ + inc, data = df_regression)
+
+#stargazer(fe9, fe10, fe11, fe12)
+#stargazer(fe13, fe14, fe15, fe16)
 
 
